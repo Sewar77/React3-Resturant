@@ -1,0 +1,13 @@
+.header-about {
+  color: black;
+  padding: 10px;
+}
+.header-about span {
+  color: tomato;
+}
+
+.container {
+  margin: auto;
+  width: 70%;
+  text-align: center;
+}

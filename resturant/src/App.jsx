@@ -1,9 +1,9 @@
-import Test from "./components/Test";
+import About from "./components/About/About.jsx";
 
 function App() {
   return (
     <>
-      <Test />
+      <About />
     </>
   );
 }
