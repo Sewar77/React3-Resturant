@@ -2,14 +2,19 @@ import Contact from "./Pages/Contact/Contact";
 import Landing from "./Pages/Landing/Landing";
 import { Routes, Route } from "react-router-dom";
 import Test from "./components/Test.jsx";
+import { Toaster } from "react-hot-toast";
+import Register from "./components/Auth/Register.jsx";
 function App() {
   return (
     <>
+      {/* config toaster */}
+      <Toaster position="top-center" />
       {/* define routes */}
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/sewar/jihad/react2/course" element={<Test />} />
+        <Route path="/test" element={<Test />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </>
   );
