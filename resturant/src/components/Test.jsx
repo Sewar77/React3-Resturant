@@ -22,6 +22,7 @@ function Test() {
     // anything inside the return must be only html
     <>
       <h1>this is text</h1>
+      <h1>this is sewar</h1>
       {/* to write js code inside return, must be in {} */}
       <p>your number: {number}</p>
       <button style={style.button} onClick={handleAdd}>

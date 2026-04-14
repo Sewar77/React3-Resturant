@@ -125,3 +125,4 @@ function Menu() {
   );
 }
 export default Menu;
+//components based acrhetecure
