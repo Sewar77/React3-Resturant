@@ -1,7 +1,9 @@
 import { useContext } from "react"
 import { userContext } from "../Context/userContext"
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom"
 export const useAuth = () => {
+    const navigate = useNavigate()
     const { users, setUsers } = useContext(userContext) //this is how to use the context 
     console.log(users);
     const register = (userData) => {
@@ -33,12 +35,36 @@ export const useAuth = () => {
             const updatedUsers = [...users, newUser]
             setUsers(updatedUsers)
             localStorage.setItem("users", JSON.stringify(updatedUsers))
+            navigate('/login')
         } catch (err) {
             console.log(err)
         }
     }
-    //task:
-    const login = () => { }
 
-    return { register }
+    const login = (userData) => {
+        if (!userData.email || !userData.password) {
+            toast.error("please enter password and email")
+            return
+        }
+        try {
+            const allUsers = JSON.parse(localStorage.getItem("users"))
+            const existUser = allUsers.find(user => user.email === userData.email)
+            if (!existUser) {
+                toast.error("You dont have an account. please register!")
+                return
+            }
+            const isMatch = existUser.password === userData.password
+            if (!isMatch) {
+                toast.error("Email or Password are not correct")
+                return
+            }
+            toast.success("Login successfully")
+            localStorage.setItem("currentUser", existUser)
+            navigate('/test')
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    return { register, login }
 }

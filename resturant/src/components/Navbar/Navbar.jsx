@@ -38,7 +38,7 @@ function Navbar() {
               <MenuItem onClick={() => navigate("/contact")}>Contact</MenuItem>
               <MenuItem>About Us</MenuItem>
               <MenuItem>Menu</MenuItem>
-              <MenuItem>Login</MenuItem>
+              <MenuItem onClick={() => navigate("/login")}>Login</MenuItem>
               <MenuItem onClick={() => navigate("/register")}>
                 Register
               </MenuItem>
