@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { userContext } from "../../Context/userContext";
 import { useAuth } from "../../Hooks/useAuth";
 import toast from "react-hot-toast";
+import Theme from "../Theme/Theme";
 function Navbar() {
   const { currentUser } = useContext(userContext);
   const { logout } = useAuth();
@@ -23,6 +24,8 @@ function Navbar() {
     <>
       <AppBar position="stikcy">
         <Toolbar
+          className="navbar"
+          id="navbar"
           sx={{
             display: "flex",
             flexDirection: "row",
@@ -48,6 +51,7 @@ function Navbar() {
               <MenuItem onClick={() => navigate("/contact")}>Contact</MenuItem>
               <MenuItem>About Us</MenuItem>
               <MenuItem>Menu</MenuItem>
+              <Theme />
               {/* customize component */}
               {currentUser.length === 0 ? (
                 <>

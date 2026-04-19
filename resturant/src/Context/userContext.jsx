@@ -14,6 +14,8 @@ export default function UserProvider({ children }) {
   useEffect(() => {
     const allUsers = JSON.parse(localStorage.getItem("users")) || [];
     const current = JSON.parse(localStorage.getItem("currentUser")) || [];
+    console.log("from use effect allUsers");
+
     if (current) {
       setCurrentUser(current);
     }
