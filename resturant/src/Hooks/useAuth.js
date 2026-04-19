@@ -1,9 +1,10 @@
 import { useContext } from "react"
 import { userContext } from "../Context/userContext"
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 export const useAuth = () => {
+    const navigate = useNavigate()
     const { users, setUsers } = useContext(userContext) //this is how to use the context 
-    console.log(users);
     const register = (userData) => {
         try {
             //validation
@@ -26,6 +27,7 @@ export const useAuth = () => {
                 email: userData.email,
                 password: userData.password,
                 confirmPassword: userData.confirmPassword,
+                role: "user",
                 id: Date.now() //id should be unique
             }
             toast.success("Registeration sucessfully")
@@ -37,8 +39,38 @@ export const useAuth = () => {
             console.log(err)
         }
     }
-    //task:
-    const login = () => { }
 
-    return { register }
+    const login = (userData) => {
+        try {
+            if (!userData.email || !userData.password) {
+                toast.error("Please Fill All Fields")
+                return;
+            }
+            const isExist = users.find(user => user.email === userData.email)
+            if (!isExist) {
+                toast.error("Email does not exist")
+                return
+            }
+            if (isExist.password !== userData.password) {
+                toast.error("Password incorrect")
+                return
+            }
+            //role based access => rba
+            if (isExist.role === "user") navigate("/home")
+            if (isExist.role === "admin") navigate("/admin/dashboard")
+            localStorage.setItem("currentUser", JSON.stringify(isExist))
+            toast.success("Login successfully")
+
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    const logout = () => {
+        // localStorage.setItem('currentUser', {})
+        localStorage.removeItem("currentUser")
+        navigate("/")
+    }
+
+    return { register, login, logout }
 }

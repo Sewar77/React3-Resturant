@@ -4,6 +4,8 @@ import { Routes, Route } from "react-router-dom";
 import Test from "./components/Test.jsx";
 import { Toaster } from "react-hot-toast";
 import Register from "./components/Auth/Register.jsx";
+import Login from "./components/Auth/Login.jsx";
+import Home from "./Pages/Home/Home.jsx";
 function App() {
   return (
     <>
@@ -15,6 +17,8 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/test" element={<Test />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/home" element={<Home />} />
       </Routes>
     </>
   );

@@ -6,8 +6,18 @@ import {
   MenuItem,
   Typography,
 } from "@mui/material";
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { userContext } from "../../Context/userContext";
+import { useAuth } from "../../Hooks/useAuth";
+import toast from "react-hot-toast";
 function Navbar() {
+  const { currentUser } = useContext(userContext);
+  const { logout } = useAuth();
+  const handleLogout = () => {
+    logout();
+    toast.success("Logout seccessfully");
+  };
   const navigate = useNavigate();
   return (
     <>
@@ -38,10 +48,17 @@ function Navbar() {
               <MenuItem onClick={() => navigate("/contact")}>Contact</MenuItem>
               <MenuItem>About Us</MenuItem>
               <MenuItem>Menu</MenuItem>
-              <MenuItem>Login</MenuItem>
-              <MenuItem onClick={() => navigate("/register")}>
-                Register
-              </MenuItem>
+              {/* customize component */}
+              {currentUser.length === 0 ? (
+                <>
+                  <MenuItem onClick={() => navigate("/login")}>Login</MenuItem>
+                  <MenuItem onClick={() => navigate("/register")}>
+                    Register
+                  </MenuItem>
+                </>
+              ) : (
+                <MenuItem onClick={handleLogout}>Logout</MenuItem>
+              )}
             </MenuList>
           </Box>
           <Box>
