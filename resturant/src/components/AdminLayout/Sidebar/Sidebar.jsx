@@ -40,10 +40,12 @@ export default function Sidebar({ isOpen, toggleSidebar }) {
           <ListItemButton onClick={() => navigate("/admin/dashboard")}>
             <MenuList>{isOpen ? "Dashboard" : <DashboardIcon />}</MenuList>
           </ListItemButton>
-          <ListItemButton onClick={() => navigate("/admin/profile")}>
+          <ListItemButton onClick={() => navigate("/admin/dashboard/profile")}>
             <MenuList>{isOpen ? "Profile" : <Person2Icon />}</MenuList>
           </ListItemButton>
-          <ListItemButton>
+          <ListItemButton
+            onClick={() => navigate("/admin/dashboard/manage/users")}
+          >
             <MenuList>
               {isOpen ? "Manage Users" : <ManageAccountsIcon />}
             </MenuList>

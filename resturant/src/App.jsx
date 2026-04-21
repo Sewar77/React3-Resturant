@@ -7,7 +7,8 @@ import Register from "./components/Auth/Register.jsx";
 import Login from "./components/Auth/Login.jsx";
 import Home from "./Pages/Home/Home.jsx";
 import AdminDashboard from "./Pages/Admin/AdminDashboard.jsx";
-import AdminProfile from "./Pages/Admin/AdminProfile.jsx"
+import AdminProfile from "./Pages/Admin/AdminProfile.jsx";
+import ManageUsers from "./Pages/Admin/ManageUsers.jsx";
 function App() {
   return (
     <>
@@ -21,8 +22,9 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/home" element={<Home />} />
-        <Route path="/admin/profile" element={<AdminProfile />} />
+        <Route path="/admin/dashboard/profile" element={<AdminProfile />} />
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        <Route path="/admin/dashboard/manage/users" element={<ManageUsers />} />
       </Routes>
     </>
   );

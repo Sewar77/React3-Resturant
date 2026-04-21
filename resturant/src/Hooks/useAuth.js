@@ -40,6 +40,13 @@ export const useAuth = () => {
         }
     }
 
+    const deleteUser = (userId) => {
+        const newUsers = users.filter(user => user.id !== userId)
+        setUsers(newUsers)
+        toast.success("Deleted Successfully")
+        localStorage.setItem("users", JSON.stringify(newUsers))
+    }
+
     const login = (userData) => {
         try {
             if (!userData.email || !userData.password) {
@@ -72,5 +79,6 @@ export const useAuth = () => {
         navigate("/")
     }
 
-    return { register, login, logout }
+
+    return { register, login, logout, deleteUser }
 }
