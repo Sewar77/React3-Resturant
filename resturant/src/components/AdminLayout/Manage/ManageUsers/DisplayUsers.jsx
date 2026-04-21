@@ -1,6 +1,10 @@
 import {
   Button,
   Container,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
   Table,
   TableBody,
   TableCell,
@@ -13,23 +17,37 @@ import { useContext, useState } from "react";
 import { userContext } from "../../../../Context/userContext";
 import { useAuth } from "../../../../Hooks/useAuth";
 import ModalConfirmDelete from "./ModalConfirmDelete";
+import toast from "react-hot-toast";
 export default function DisplayUsers() {
   const { users } = useContext(userContext);
-  const { deleteUser } = useAuth();
+  const { deleteUser, updateUserRole } = useAuth();
   const [openConfirm, setOpenConfirm] = useState(false);
-  const [seletedId, setSelectedId] = useState(null);
+  const [deletedUserId, setDeletedUserId] = useState(null); //for delete
+  const [updatedUserId, setUpdatedUserId] = useState(null); //for update
+  const [newRole, setNewRole] = useState("");
   const handleDeleteUser = (userId) => {
     setOpenConfirm(true);
-    setSelectedId(userId);
+    setDeletedUserId(userId);
   };
   const handleConfirm = () => {
-    deleteUser(seletedId);
-    setSelectedId(null);
+    deleteUser(deletedUserId);
+    setDeletedUserId(null);
     setOpenConfirm(false);
   };
   const handleCancel = () => {
-    setSelectedId(null);
+    setDeletedUserId(null);
     setOpenConfirm(false);
+  };
+  const handleUpdateRole = (userId) => {
+    setUpdatedUserId(userId);
+  };
+  const handleUpdateUserRole = (userId) => {
+    updateUserRole(userId, newRole);
+    setUpdatedUserId(null);
+  };
+  const handleCancelUpdate = () => {
+    setUpdatedUserId(null);
+    toast.success("Canceled Update Role");
   };
   return (
     <>
@@ -58,7 +76,25 @@ export default function DisplayUsers() {
                   <TableCell>{idx + 1}</TableCell>
                   <TableCell>{user.name}</TableCell>
                   <TableCell>{user.email}</TableCell>
-                  <TableCell>{user.role}</TableCell>
+                  <TableCell>
+                    {updatedUserId && updatedUserId === user.id ? (
+                      <FormControl fullWidth>
+                        <InputLabel id="demo-simple-select-label">
+                          Role
+                        </InputLabel>
+                        <Select
+                          labelId="demo-simple-select-label"
+                          value={newRole}
+                          onChange={(e) => setNewRole(e.target.value)}
+                        >
+                          <MenuItem value="user">User</MenuItem>
+                          <MenuItem value="admin">Admin</MenuItem>
+                        </Select>
+                      </FormControl>
+                    ) : (
+                      user.role
+                    )}
+                  </TableCell>
                   <TableCell
                     sx={{
                       display: "flex",
@@ -68,9 +104,32 @@ export default function DisplayUsers() {
                       textAlign: "center",
                     }}
                   >
-                    <Button variant="contained" color="warning">
-                      Edit
-                    </Button>
+                    {updatedUserId && updatedUserId === user.id ? (
+                      <>
+                        <Button
+                          variant="contained"
+                          color="success"
+                          onClick={() => handleUpdateUserRole(user.id)}
+                        >
+                          Save
+                        </Button>
+                        <Button
+                          variant="contained"
+                          color="warning"
+                          onClick={handleCancelUpdate}
+                        >
+                          Cancel
+                        </Button>
+                      </>
+                    ) : (
+                      <Button
+                        variant="contained"
+                        color="warning"
+                        onClick={() => handleUpdateRole(user.id)}
+                      >
+                        Edit
+                      </Button>
+                    )}
                     <Button
                       variant="contained"
                       color="error"

@@ -46,6 +46,12 @@ export const useAuth = () => {
         toast.success("Deleted Successfully")
         localStorage.setItem("users", JSON.stringify(newUsers))
     }
+    const updateUserRole = (userId, newRole) => {
+        const updatedUsers = users.map((user) => user.id === userId ? { ...user, role: newRole } : user)
+        setUsers(updatedUsers)
+        toast.success("role updated")
+        localStorage.setItem("users", JSON.stringify(updatedUsers))
+    }
 
     const login = (userData) => {
         try {
@@ -80,5 +86,5 @@ export const useAuth = () => {
     }
 
 
-    return { register, login, logout, deleteUser }
+    return { register, login, logout, deleteUser, updateUserRole }
 }
