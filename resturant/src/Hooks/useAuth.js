@@ -57,11 +57,10 @@ export const useAuth = () => {
             }
             //role based access => rba
 
-            // if (isExist.role === "user") navigate("/home")
-            // if (isExist.role === "admin") navigate("/admin/dashboard")
+            if (isExist.role === "user") navigate("/home")
+            if (isExist.role === "admin") navigate("/admin/dashboard")
             localStorage.setItem("currentUser", JSON.stringify(isExist))
             toast.success("Login successfully")
-            navigate("/home")
         } catch (err) {
             console.log(err)
         }
