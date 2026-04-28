@@ -9,6 +9,7 @@ import Home from "./Pages/Home/Home.jsx";
 import AdminDashboard from "./Pages/Admin/AdminDashboard.jsx";
 import AdminProfile from "./Pages/Admin/AdminProfile.jsx";
 import ManageUsers from "./Pages/Admin/ManageUsers.jsx";
+import ManageMenu from "./Pages/Admin/ManageMenu.jsx";
 function App() {
   return (
     <>
@@ -25,6 +26,7 @@ function App() {
         <Route path="/admin/dashboard/profile" element={<AdminProfile />} />
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
         <Route path="/admin/dashboard/manage/users" element={<ManageUsers />} />
+        <Route path="/admin/dashboard/manage/menu" element={<ManageMenu />} />
       </Routes>
     </>
   );

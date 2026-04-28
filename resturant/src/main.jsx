@@ -4,12 +4,15 @@ import "./index.css";
 import App from "./App.jsx";
 import { BrowserRouter } from "react-router-dom";
 import UserProvider from "./Context/userContext.jsx";
+import MenuProvider from "./Context/menuContext.jsx";
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
       <UserProvider>
-        <App />
-        {/* app is cildren for user provider */}
+        <MenuProvider>
+          <App />
+          {/* app is cildren for user provider */}
+        </MenuProvider>
       </UserProvider>
     </BrowserRouter>
   </StrictMode>

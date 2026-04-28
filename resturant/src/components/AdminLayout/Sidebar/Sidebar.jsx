@@ -50,7 +50,9 @@ export default function Sidebar({ isOpen, toggleSidebar }) {
               {isOpen ? "Manage Users" : <ManageAccountsIcon />}
             </MenuList>
           </ListItemButton>
-          <ListItemButton>
+          <ListItemButton
+            onClick={() => navigate("/admin/dashboard/manage/menu")}
+          >
             <MenuList>
               {isOpen ? "Manage Menu" : <RestaurantMenuIcon />}
             </MenuList>
