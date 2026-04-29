@@ -57,7 +57,9 @@ export default function Sidebar({ isOpen, toggleSidebar }) {
               {isOpen ? "Manage Menu" : <RestaurantMenuIcon />}
             </MenuList>
           </ListItemButton>
-          <ListItemButton>
+          <ListItemButton
+            onClick={() => navigate("/admin/dashboard/manage/messages")}
+          >
             <MenuList>{isOpen ? "Messages" : <MessageIcon />}</MenuList>
           </ListItemButton>
           <ListItemButton onClick={handleLogout}>

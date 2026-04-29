@@ -10,6 +10,7 @@ import AdminDashboard from "./Pages/Admin/AdminDashboard.jsx";
 import AdminProfile from "./Pages/Admin/AdminProfile.jsx";
 import ManageUsers from "./Pages/Admin/ManageUsers.jsx";
 import ManageMenu from "./Pages/Admin/ManageMenu.jsx";
+import ManageMesssages from "./Pages/Admin/ManageMessages.jsx";
 function App() {
   return (
     <>
@@ -27,6 +28,10 @@ function App() {
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
         <Route path="/admin/dashboard/manage/users" element={<ManageUsers />} />
         <Route path="/admin/dashboard/manage/menu" element={<ManageMenu />} />
+        <Route
+          path="/admin/dashboard/manage/messages"
+          element={<ManageMesssages />}
+        />
       </Routes>
     </>
   );

@@ -1,9 +1,9 @@
 import { Button } from "@mui/material";
 
-function ContactBtn() {
+function ContactBtn({ handleSubmit }) {
   return (
     <>
-      <Button variant="contained" color="success">
+      <Button variant="contained" color="success" onClick={handleSubmit}>
         Submit
       </Button>
     </>

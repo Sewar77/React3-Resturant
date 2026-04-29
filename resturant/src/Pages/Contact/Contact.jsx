@@ -6,7 +6,9 @@ export default function Contact() {
   return (
     <>
       <Navbar />
-      <ContactForm />
+      <Container sx={{ m: "auto" }}>
+        <ContactForm />
+      </Container>
     </>
   );
 }
