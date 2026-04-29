@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 export const useAuth = () => {
     const navigate = useNavigate()
-    const { users, setUsers } = useContext(userContext) //this is how to use the context 
+    const { users, setUsers, setCurrentUser } = useContext(userContext) //this is how to use the context 
     const register = (userData) => {
         try {
             //validation
@@ -73,6 +73,7 @@ export const useAuth = () => {
             if (isExist.role === "user") navigate("/home")
             if (isExist.role === "admin") navigate("/admin/dashboard")
             localStorage.setItem("currentUser", JSON.stringify(isExist))
+            setCurrentUser(isExist)
             toast.success("Login successfully")
         } catch (err) {
             console.log(err)
@@ -82,6 +83,7 @@ export const useAuth = () => {
     const logout = () => {
         // localStorage.setItem('currentUser', {})
         localStorage.removeItem("currentUser")
+        setCurrentUser({})
         navigate("/")
     }
 

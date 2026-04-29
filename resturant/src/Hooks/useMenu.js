@@ -18,6 +18,25 @@ export const useMenu = () => {
         }
     }
 
+    const updateMenuItem = (menuId, updatedData) => {
+        try {
+            const updatedMenu = menu.map(item => {
+                if (item.id === menuId) {
+                    return {
+                        ...item, ...updatedData
+                    }
+                }
+                return item
+            })
+            setMenu(updatedMenu)
+            localStorage.setItem("menu", JSON.stringify(updatedMenu))
+            toast.success("updated done")
+        } catch (err) {
+            console.log(err);
+            toast.error(err)
+        }
+    }
+
     const addNewItem = (menuItem) => {
         try {
             console.log(menuItem);
@@ -39,5 +58,7 @@ export const useMenu = () => {
         }
     }
 
-    return { menu, deleteMenuItem, addNewItem }
+
+
+    return { menu, deleteMenuItem, addNewItem, updateMenuItem }
 }

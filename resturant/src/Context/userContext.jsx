@@ -26,7 +26,9 @@ export default function UserProvider({ children }) {
   //empty [] => empty depandancies=> when refresh
 
   return (
-    <userContext.Provider value={{ users, setUsers, currentUser }}>
+    <userContext.Provider
+      value={{ users, setUsers, currentUser, setCurrentUser }}
+    >
       {/* value => what to provide */}
       {children}
       {/* children => for whome to provide */}

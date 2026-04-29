@@ -53,7 +53,7 @@ function Navbar() {
               <MenuItem>Menu</MenuItem>
               <Theme />
               {/* customize component */}
-              {currentUser.length === 0 ? (
+              {Object.keys(currentUser).length === 0 ? (
                 <>
                   <MenuItem onClick={() => navigate("/login")}>Login</MenuItem>
                   <MenuItem onClick={() => navigate("/register")}>
