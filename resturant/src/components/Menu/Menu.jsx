@@ -14,6 +14,7 @@ import { useMenu } from "../../Hooks/useMenu.js";
 import { useContext, useState } from "react";
 import AddMenuItem from "../AdminLayout/Manage/ManageMenu/AddMenuItem.jsx";
 import { userContext } from "../../Context/userContext.jsx";
+import Search from "../Search/Search.jsx";
 function Menu() {
   const { menu, deleteMenuItem, updateMenuItem } = useMenu();
   const { currentUser } = useContext(userContext);
@@ -40,6 +41,11 @@ function Menu() {
     updateMenuItem(editId, updatedData);
     setEditId(null);
   };
+  const [search, setSearch] = useState("");
+  const filteredSearch = menu.filter((user) =>
+    user.name.toLowerCase().includes(search.toLowerCase())
+  );
+  console.log(filteredSearch);
   return (
     <>
       <Container>
@@ -54,9 +60,9 @@ function Menu() {
             {show && <AddMenuItem />}
           </>
         )}
-
+        <Search setSearch={setSearch} placeHolder="Search in Menu" />
         <Grid container spacing={4}>
-          {menu.map((item) => {
+          {filteredSearch.map((item) => {
             return (
               <Grid key={item.id} size={{ sm: 12, md: 6, lg: 4 }}>
                 <Card

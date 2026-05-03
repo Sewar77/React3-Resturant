@@ -18,6 +18,7 @@ import { userContext } from "../../../../Context/userContext";
 import { useAuth } from "../../../../Hooks/useAuth";
 import ModalConfirmDelete from "./ModalConfirmDelete";
 import toast from "react-hot-toast";
+import Search from "../../../Search/Search";
 export default function DisplayUsers() {
   const { users } = useContext(userContext);
   const { deleteUser, updateUserRole } = useAuth();
@@ -25,6 +26,14 @@ export default function DisplayUsers() {
   const [deletedUserId, setDeletedUserId] = useState(null); //for delete
   const [updatedUserId, setUpdatedUserId] = useState(null); //for update
   const [newRole, setNewRole] = useState("");
+  const [search, setSearch] = useState("");
+  const filteredSearch = users.filter(
+    (user) =>
+      user.name.toLowerCase().includes(search.toLowerCase()) ||
+      user.email.includes(search.toLowerCase())
+  );
+  console.log(filteredSearch);
+
   const handleDeleteUser = (userId) => {
     setOpenConfirm(true);
     setDeletedUserId(userId);
@@ -59,6 +68,7 @@ export default function DisplayUsers() {
         }}
       >
         <Typography variant="h3">Manage Users</Typography>
+        <Search setSearch={setSearch} placeHolder="Search in Users" />
         <TableContainer>
           <Table>
             <TableHead>
@@ -71,7 +81,7 @@ export default function DisplayUsers() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {users.map((user, idx) => (
+              {filteredSearch.map((user, idx) => (
                 <TableRow key={user.id}>
                   <TableCell>{idx + 1}</TableCell>
                   <TableCell>{user.name}</TableCell>

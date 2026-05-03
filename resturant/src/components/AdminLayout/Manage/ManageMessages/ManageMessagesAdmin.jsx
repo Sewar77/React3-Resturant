@@ -9,9 +9,9 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { messageContext } from "../../../../Context/messageContext.jsx";
-import toast from "react-hot-toast";
+import Search from "../../../Search/Search.jsx";
 export default function ManageMessagesAdmin() {
   const { messages, deleteMessage, approveMessage } =
     useContext(messageContext);
@@ -23,6 +23,11 @@ export default function ManageMessagesAdmin() {
   const handleApprove = (msgId) => {
     approveMessage(msgId);
   };
+  const [search, setSearch] = useState("");
+  const filteredSearch = messages.filter((user) =>
+    user.name.toLowerCase().includes(search.toLowerCase())
+  );
+  console.log(filteredSearch);
   return (
     <>
       <Container
@@ -30,8 +35,9 @@ export default function ManageMessagesAdmin() {
           m: "auto",
         }}
       >
+        <Search setSearch={setSearch} placeHolder="Search in Messages" />
         <Grid container spacing={4} sx={{ p: 3, m: 3 }}>
-          {messages.map((message) => {
+          {filteredSearch.map((message) => {
             return (
               <Grid key={message.id} size={{ sm: 12, md: 6, lg: 4 }}>
                 <Card sx={{ p: 3 }}>
