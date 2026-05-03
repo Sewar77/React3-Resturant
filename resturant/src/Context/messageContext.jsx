@@ -16,6 +16,7 @@ export default function MessageProvider({ children }) {
       }
       const newMessage = {
         id: Date.now(),
+        status: "pending",
         ...messageData,
       };
       const allMessages = [...messages, newMessage];
@@ -26,8 +27,32 @@ export default function MessageProvider({ children }) {
       console.log(err);
     }
   };
+  const deleteMessage = (msgId) => {
+    try {
+      const newMessages = messages.filter((msg) => msg.id !== msgId);
+      setMessages(newMessages);
+      localStorage.setItem("messages", JSON.stringify(newMessages));
+      toast.success("deleted");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const approveMessage = (msgId) => {
+    try {
+      const newMessage = messages.map((mesg) =>
+        mesg.id === msgId ? { ...mesg, status: "approved" } : mesg
+      );
+      setMessages(newMessage);
+      localStorage.setItem("messages", JSON.stringify(newMessage));
+      toast.success("approved");
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
-    <messageContext.Provider value={{ createMessage, messages }}>
+    <messageContext.Provider
+      value={{ createMessage, messages, deleteMessage, approveMessage }}
+    >
       {children}
     </messageContext.Provider>
   );

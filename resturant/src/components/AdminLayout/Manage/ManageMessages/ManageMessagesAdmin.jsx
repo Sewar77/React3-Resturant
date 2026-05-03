@@ -3,6 +3,7 @@ import {
   Card,
   CardActions,
   CardContent,
+  CardHeader,
   Container,
   Divider,
   Grid,
@@ -10,10 +11,18 @@ import {
 } from "@mui/material";
 import { useContext } from "react";
 import { messageContext } from "../../../../Context/messageContext.jsx";
+import toast from "react-hot-toast";
 export default function ManageMessagesAdmin() {
-  const { messages } = useContext(messageContext);
+  const { messages, deleteMessage, approveMessage } =
+    useContext(messageContext);
   console.log(messages);
-
+  // define
+  const handleDelete = (msgId) => {
+    deleteMessage(msgId);
+  };
+  const handleApprove = (msgId) => {
+    approveMessage(msgId);
+  };
   return (
     <>
       <Container
@@ -26,6 +35,10 @@ export default function ManageMessagesAdmin() {
             return (
               <Grid key={message.id} size={{ sm: 12, md: 6, lg: 4 }}>
                 <Card sx={{ p: 3 }}>
+                  <CardHeader
+                    title={message.status}
+                    sx={{ bgcolor: "#eddd59" }}
+                  />
                   <CardContent>
                     <Grid size={4}></Grid>
                     <Typography variant="h5">{message.name}</Typography>
@@ -36,10 +49,19 @@ export default function ManageMessagesAdmin() {
                     <Typography variant="h3">{message.message}</Typography>
                   </CardContent>
                   <CardActions>
-                    <Button color="error" variant="contained">
+                    <Button
+                      color="error"
+                      variant="contained"
+                      onClick={() => handleDelete(message.id)}
+                      // call the function
+                    >
                       Reject
                     </Button>
-                    <Button color="success" variant="contained">
+                    <Button
+                      color="success"
+                      variant="contained"
+                      onClick={() => handleApprove(message.id)}
+                    >
                       Approve
                     </Button>
                   </CardActions>
