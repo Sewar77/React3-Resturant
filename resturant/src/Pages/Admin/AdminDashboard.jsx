@@ -1,12 +1,27 @@
 import { Box, Container, Typography } from "@mui/material";
 import Sidebar from "../../components/AdminLayout/Sidebar/Sidebar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { api } from "../../../api";
 
 export default function AdminDashboard() {
   const [open, setOpen] = useState(true);
   const toggleSidebar = () => {
     setOpen(!open);
   };
+  const [comments, setComments] = useState([]);
+  const displayComments = async () => {
+    try {
+      const res = await api.get("/posts");
+      setComments(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  console.log(comments);
+
+  useEffect(() => {
+    displayComments();
+  }, []);
   return (
     <>
       <Container
@@ -29,9 +44,14 @@ export default function AdminDashboard() {
         <Box
           sx={{
             flexGrow: 3,
+            mt: 3,
           }}
         >
-          <Typography>this is admin dashboard</Typography>
+          <Typography variant="h2">this is admin dashboard</Typography>
+          <Typography>here where you can manage all your resturant</Typography>
+          <Typography>
+            you may choose from the sidebar whatever you want.
+          </Typography>
         </Box>
       </Container>
     </>

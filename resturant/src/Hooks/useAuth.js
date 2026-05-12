@@ -27,7 +27,7 @@ export const useAuth = () => {
                 email: userData.email,
                 password: userData.password,
                 confirmPassword: userData.confirmPassword,
-                role: "user",
+                role: "admin",
                 id: Date.now() //id should be unique
             }
             toast.success("Registeration sucessfully")

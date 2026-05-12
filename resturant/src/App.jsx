@@ -12,6 +12,8 @@ import ManageUsers from "./Pages/Admin/ManageUsers.jsx";
 import ManageMenu from "./Pages/Admin/ManageMenu.jsx";
 import ManageMesssages from "./Pages/Admin/ManageMessages.jsx";
 import Cart from "./components/Cart/Cart.jsx";
+import AboutPage from "./components/About/AboutPage.jsx";
+import Menu from "./components/Menu/Menu.jsx";
 function App() {
   return (
     <>
@@ -25,6 +27,8 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/menu" element={<Menu />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/admin/dashboard/profile" element={<AdminProfile />} />
         <Route path="/admin/dashboard" element={<AdminDashboard />} />

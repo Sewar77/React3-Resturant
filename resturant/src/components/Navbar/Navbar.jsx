@@ -54,11 +54,11 @@ function Navbar() {
                 textAlign: "center",
               }}
             >
-              <MenuItem>Home</MenuItem>
+              <MenuItem onClick={() => navigate("/home")}>Home</MenuItem>
               {/* use the router  */}
               <MenuItem onClick={() => navigate("/contact")}>Contact</MenuItem>
-              <MenuItem>About Us</MenuItem>
-              <MenuItem>Menu</MenuItem>
+              <MenuItem onClick={() => navigate("/about")}>About Us</MenuItem>
+              <MenuItem onClick={() => navigate("/menu")}>Menu</MenuItem>
               <Theme />
               {/* customize component */}
               {Object.keys(currentUser).length === 0 ? (
