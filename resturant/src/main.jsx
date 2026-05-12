@@ -6,15 +6,18 @@ import { BrowserRouter } from "react-router-dom";
 import UserProvider from "./Context/userContext.jsx";
 import MenuProvider from "./Context/menuContext.jsx";
 import MessageProvider from "./Context/messageContext.jsx";
+import CartProvider from "./Context/cartContext.jsx";
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
       <UserProvider>
         <MenuProvider>
-          <MessageProvider>
-            <App />
-            {/* app is cildren for user provider */}
-          </MessageProvider>
+          <CartProvider>
+            <MessageProvider>
+              <App />
+              {/* app is cildren for user provider */}
+            </MessageProvider>
+          </CartProvider>
         </MenuProvider>
       </UserProvider>
     </BrowserRouter>

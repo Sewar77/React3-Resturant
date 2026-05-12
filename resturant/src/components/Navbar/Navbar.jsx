@@ -5,13 +5,17 @@ import {
   MenuList,
   MenuItem,
   Typography,
+  IconButton,
+  Badge,
 } from "@mui/material";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { userContext } from "../../Context/userContext";
 import { useAuth } from "../../Hooks/useAuth";
 import toast from "react-hot-toast";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Theme from "../Theme/Theme";
+import { cartContext } from "../../Context/cartContext";
 function Navbar() {
   const { currentUser } = useContext(userContext);
   const { logout } = useAuth();
@@ -20,6 +24,9 @@ function Navbar() {
     toast.success("Logout seccessfully");
   };
   const navigate = useNavigate();
+
+  const { cart } = useContext(cartContext);
+  const total = cart.reduce((acc, item) => acc + item.quantityCart, 0);
   return (
     <>
       <AppBar position="stikcy">
@@ -44,6 +51,7 @@ function Navbar() {
                 flexDirection: "row",
                 justifyContent: "center",
                 flexWrap: "wrap",
+                textAlign: "center",
               }}
             >
               <MenuItem>Home</MenuItem>
@@ -63,6 +71,13 @@ function Navbar() {
               ) : (
                 <MenuItem onClick={handleLogout}>Logout</MenuItem>
               )}
+              <MenuItem>
+                <IconButton onClick={() => navigate("/cart")}>
+                  <Badge badgeContent={total} color="error">
+                    <ShoppingCartIcon />
+                  </Badge>
+                </IconButton>
+              </MenuItem>
             </MenuList>
           </Box>
           <Box>

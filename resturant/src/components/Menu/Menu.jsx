@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   ButtonBase,
   Card,
@@ -7,16 +8,21 @@ import {
   CardMedia,
   Container,
   Grid,
+  Modal,
   TextField,
   Typography,
 } from "@mui/material";
 import { useMenu } from "../../Hooks/useMenu.js";
-import { useContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import AddMenuItem from "../AdminLayout/Manage/ManageMenu/AddMenuItem.jsx";
 import { userContext } from "../../Context/userContext.jsx";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import { cartContext } from "../../Context/cartContext.jsx";
 function Menu() {
   const { menu, deleteMenuItem, updateMenuItem } = useMenu();
   const { currentUser } = useContext(userContext);
+  const navigate = useNavigate();
   //CRUD => c:create , r:read, u:update. d:delete
   //read: done
   //delete: done
@@ -40,6 +46,20 @@ function Menu() {
     updateMenuItem(editId, updatedData);
     setEditId(null);
   };
+  const { cart, addToCart, decreaseQty, increaseQty } = useContext(cartContext);
+  const [openCartModal, setOpenCartModal] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
+  const handleAddToCart = (item) => {
+    if (currentUser.length === 0) {
+      toast.success("please login first!");
+      navigate("/login");
+      return;
+    }
+    setSelectedItem(item);
+    addToCart(item);
+    toast.success("added to cart");
+  };
+
   return (
     <>
       <Container>
@@ -172,7 +192,14 @@ function Menu() {
                       </>
                     ) : (
                       <>
-                        <Button variant="contained" color="info">
+                        <Button
+                          variant="contained"
+                          color="info"
+                          onClick={() => (
+                            setOpenCartModal(!openCartModal),
+                            handleAddToCart(item)
+                          )}
+                        >
                           Add to Cart
                         </Button>
                       </>
@@ -184,6 +211,60 @@ function Menu() {
           })}
         </Grid>
       </Container>
+      <Modal open={openCartModal} onClose={() => setOpenCartModal(false)}>
+        <Box
+          sx={{
+            background: "#fff",
+            p: 4,
+            width: 300,
+            mx: "auto",
+            borderRadius: 3,
+            mt: "20%",
+            textAlign: "center",
+          }}
+        >
+          {selectedItem && (
+            <>
+              <Typography variant="h4">{selectedItem.name}</Typography>
+              <Typography variant="h6">Price: {selectedItem.price}$</Typography>
+              {(() => {
+                const cartItem = cart.find((i) => i.id === selectedItem.id);
+
+                return (
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "center",
+                      my: 3,
+                    }}
+                  >
+                    <Button
+                      variant="contained"
+                      color="info"
+                      sx={{ mx: 2, mt: 3 }}
+                      onClick={() => increaseQty(selectedItem.id)}
+                    >
+                      +
+                    </Button>
+                    <Typography>
+                      You Ordred: {cartItem?.quantityCart || 0}
+                    </Typography>
+                    <Button
+                      variant="contained"
+                      color="warning"
+                      sx={{ mx: 2, mt: 3 }}
+                      onClick={() => decreaseQty(selectedItem.id)}
+                    >
+                      -
+                    </Button>
+                  </Box>
+                );
+              })()}
+            </>
+          )}
+        </Box>
+      </Modal>
     </>
   );
 }
